@@ -22,6 +22,7 @@ except InvalidUsernameError as e:
           f'Мінімум 5 символів.')
 '''
 #2
+'''
 class InvalidPasswordError(Exception):
     def __init__(self, password):
         self.password = password
@@ -39,4 +40,32 @@ try:
     print("Пароль валідний!")
 except InvalidPasswordError as e:
     print(f"Помилка перевірки пароля: {e.password} є неправильним.")
+    '''
 #3
+class InvalidFileFormatError(Exception):
+    def __init__(self, filename):
+        self.filename = filename
+        super().__init__(f"Invalid file format: {filename}")
+
+
+def read_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            content = file.read()
+            return content
+    except FileNotFoundError:
+        print(f"File not found: {filename}")
+    except IsADirectoryError:
+        print(f"Invalid file: {filename} is a directory")
+    except PermissionError:
+        print(f"Permission denied: {filename}")
+    except UnicodeDecodeError:
+        raise InvalidFileFormatError(filename)
+
+
+# Приклад використання
+try:
+    content = read_file("text.txt")
+    print(content)
+except InvalidFileFormatError as e:
+    print(e)
