@@ -63,7 +63,7 @@ def read_file(filename):
         raise InvalidFileFormatError(filename)
 
 
-# Приклад використання
+# Приклад використання#
 try:
     content = read_file("text.txt")
     print(content)
